@@ -46,7 +46,7 @@ export default function LoginPage() {
       {/* Welcome Section */}
       <div className="w-full flex flex-col gap-2 text-center">
         <h2 className="text-4xl font-black tracking-tight">Welcome Back,</h2>
-        <p className="text-white/60 text-sm font-medium">Log in to your secure account</p>
+        <p className="text-white/60 text-sm font-medium">Sign in to try the demo</p>
       </div>
 
       {/* Biometric Button */}
@@ -57,7 +57,7 @@ export default function LoginPage() {
         >
           <Fingerprint size={48} className="text-[#D4AF37] group-hover:scale-110 transition-transform" />
         </HapticButton>
-        <p className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">Tap to sign in with FaceID</p>
+        <p className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">Try the simulated FaceID sign-in</p>
       </div>
 
       {/* Footer Info */}
