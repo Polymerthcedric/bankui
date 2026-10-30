@@ -40,7 +40,7 @@ export default function LoginPage() {
           <ShieldCheck size={40} className="text-[#003366]" />
         </div>
         <h1 className="text-3xl font-black tracking-tighter uppercase italic">BankUi</h1>
-        <p className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.4em] mt-1">Secured by ADIB</p>
+        <p className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.4em] mt-1">BankUI prototype · no bank connection</p>
       </motion.div>
 
       {/* Welcome Section */}
