@@ -40,13 +40,13 @@ export default function LoginPage() {
           <ShieldCheck size={40} className="text-[#003366]" />
         </div>
         <h1 className="text-3xl font-black tracking-tighter uppercase italic">BankUi</h1>
-        <p className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.4em] mt-1">Secured by ADIB</p>
+        <p className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.4em] mt-1">BankUI prototype · no bank connection</p>
       </motion.div>
 
       {/* Welcome Section */}
       <div className="w-full flex flex-col gap-2 text-center">
         <h2 className="text-4xl font-black tracking-tight">Welcome Back,</h2>
-        <p className="text-white/60 text-sm font-medium">Log in to your secure account</p>
+        <p className="text-white/60 text-sm font-medium">Sign in to try the demo</p>
       </div>
 
       {/* Biometric Button */}
@@ -57,17 +57,17 @@ export default function LoginPage() {
         >
           <Fingerprint size={48} className="text-[#D4AF37] group-hover:scale-110 transition-transform" />
         </HapticButton>
-        <p className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">Tap to sign in with FaceID</p>
+        <p className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">Try the simulated FaceID sign-in</p>
       </div>
 
       {/* Footer Info */}
       <div className="mb-8 flex flex-col gap-6 w-full max-w-xs">
-        <HapticButton className="w-full h-14 bg-white text-[#003366] rounded-[22px] font-black text-sm uppercase tracking-widest shadow-xl">
-           Use Access Code
+        <HapticButton disabled className="w-full h-14 bg-white text-[#003366] rounded-[22px] font-black text-sm uppercase tracking-widest shadow-xl opacity-60">
+           Use Access Code (demo)
         </HapticButton>
         <div className="flex justify-between px-4">
-           <button className="text-[10px] font-bold uppercase tracking-widest text-white/40">Forgot Pin?</button>
-           <button className="text-[10px] font-bold uppercase tracking-widest text-white/40">Need Help?</button>
+           <button disabled className="text-[10px] font-bold uppercase tracking-widest text-white/40 opacity-60">Forgot Pin? (demo)</button>
+           <button disabled className="text-[10px] font-bold uppercase tracking-widest text-white/40 opacity-60">Need Help? (demo)</button>
         </div>
       </div>
 
@@ -122,7 +122,7 @@ export default function LoginPage() {
               <h3 className="text-2xl font-black uppercase italic tracking-tighter">
                 {scanComplete ? 'Verified' : 'Scanning FaceID...'}
               </h3>
-              <p className="text-white/40 text-[10px] font-bold uppercase tracking-[0.3em] mt-2">Biometric Authentication</p>
+              <p className="text-white/40 text-[10px] font-bold uppercase tracking-[0.3em] mt-2">Simulated biometric scan · demo only</p>
             </div>
           </motion.div>
         )}

@@ -41,7 +41,7 @@ export default function MenuPage() {
           <Info size={48} />
         </div>
         <h3 className="text-[#D4AF37] text-xs font-black uppercase tracking-[0.2em] mb-4">Demo Accounts Hub</h3>
-        <p className="text-white/50 text-[10px] mb-6 leading-relaxed">Use these numbers in the "Send" screen to demonstrate real-time account verification and balance updates.</p>
+        <p className="text-white/50 text-[10px] mb-6 leading-relaxed">Use these sample accounts on the Send screen to try a demo transfer and see a sample balance change.</p>
         
         <div className="flex flex-col gap-3">
           {otherAccounts.map((acc, i) => (
@@ -92,7 +92,7 @@ export default function MenuPage() {
       </HapticButton>
 
       <div className="text-center mt-4">
-        <p className="text-[10px] text-gray-300 font-bold uppercase tracking-[0.4em]">BankUi v2.1.0 • KENYAN EDITION</p>
+        <p className="text-[10px] text-gray-300 font-bold uppercase tracking-[0.4em]">BankUI v0.1.0 • prototype</p>
       </div>
     </div>
   );

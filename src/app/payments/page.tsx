@@ -33,11 +33,11 @@ export default function PaymentsPage() {
         <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full -mr-8 -mt-8"></div>
         <CreditCard size={32} className="opacity-40" />
         <div>
-          <h3 className="text-lg font-black leading-tight">Automate Your<br/>Monthly Payments</h3>
-          <p className="text-white/60 text-xs mt-2 font-medium">Never miss a deadline again with our ADIB Smart-Pay feature.</p>
+          <h3 className="text-lg font-black leading-tight">Preview Monthly<br/>Payments</h3>
+          <p className="text-white/60 text-xs mt-2 font-medium">This prototype does not connect to a bank or process bill payments.</p>
         </div>
-        <button className="bg-[#D4AF37] w-full py-4 rounded-2xl font-black text-sm shadow-lg shadow-black/20 uppercase tracking-widest mt-2 active:scale-[0.98]">
-           Setup Now
+        <button disabled className="bg-[#D4AF37] w-full py-4 rounded-2xl font-black text-sm shadow-lg shadow-black/20 uppercase tracking-widest mt-2 opacity-60 cursor-not-allowed">
+           Prototype Only
         </button>
       </div>
     </div>
