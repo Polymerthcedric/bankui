@@ -62,12 +62,12 @@ export default function LoginPage() {
 
       {/* Footer Info */}
       <div className="mb-8 flex flex-col gap-6 w-full max-w-xs">
-        <HapticButton className="w-full h-14 bg-white text-[#003366] rounded-[22px] font-black text-sm uppercase tracking-widest shadow-xl">
-           Use Access Code
+        <HapticButton disabled className="w-full h-14 bg-white text-[#003366] rounded-[22px] font-black text-sm uppercase tracking-widest shadow-xl opacity-60">
+           Use Access Code (demo)
         </HapticButton>
         <div className="flex justify-between px-4">
-           <button className="text-[10px] font-bold uppercase tracking-widest text-white/40">Forgot Pin?</button>
-           <button className="text-[10px] font-bold uppercase tracking-widest text-white/40">Need Help?</button>
+           <button disabled className="text-[10px] font-bold uppercase tracking-widest text-white/40 opacity-60">Forgot Pin? (demo)</button>
+           <button disabled className="text-[10px] font-bold uppercase tracking-widest text-white/40 opacity-60">Need Help? (demo)</button>
         </div>
       </div>
 
@@ -122,7 +122,7 @@ export default function LoginPage() {
               <h3 className="text-2xl font-black uppercase italic tracking-tighter">
                 {scanComplete ? 'Verified' : 'Scanning FaceID...'}
               </h3>
-              <p className="text-white/40 text-[10px] font-bold uppercase tracking-[0.3em] mt-2">Biometric Authentication</p>
+              <p className="text-white/40 text-[10px] font-bold uppercase tracking-[0.3em] mt-2">Simulated biometric scan · demo only</p>
             </div>
           </motion.div>
         )}

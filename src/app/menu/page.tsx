@@ -92,7 +92,7 @@ export default function MenuPage() {
       </HapticButton>
 
       <div className="text-center mt-4">
-        <p className="text-[10px] text-gray-300 font-bold uppercase tracking-[0.4em]">BankUi v2.1.0 • KENYAN EDITION</p>
+        <p className="text-[10px] text-gray-300 font-bold uppercase tracking-[0.4em]">BankUI v0.1.0 • prototype</p>
       </div>
     </div>
   );

@@ -102,6 +102,10 @@ export const useBankStore = create<BankStore>((set, get) => ({
     const receiver = state.findAccount(receiverAccNum);
     const parsedAmount = Number(amount);
 
+    if (!Number.isFinite(parsedAmount) || parsedAmount <= 0) {
+      return { success: false, message: 'Invalid amount' };
+    }
+
     // Skip receiver validation for BTC if it looks like a wallet address
     const isCrypto = activeCurrency === 'BTC' && receiverAccNum.startsWith('bc1');
     
