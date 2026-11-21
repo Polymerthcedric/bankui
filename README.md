@@ -15,10 +15,11 @@ The app opens at [http://localhost:3000](http://localhost:3000).
 
 ```sh
 npm run lint
+npm run test
 npm run build
 ```
 
-Both commands pass on Next.js 16.4.6. `npm audit` reports 0 vulnerabilities with the committed lockfile.
+All three commands pass on Next.js 16.4.6. `npm audit` reports 0 vulnerabilities with the committed lockfile. The test file checks the service-worker update path with Node's built-in test runner.
 
 ## Demo limits
 
@@ -28,4 +29,4 @@ Both commands pass on Next.js 16.4.6. `npm audit` reports 0 vulnerabilities with
 - The menu labels, account names, and "Platinum Member" text are sample content.
 - There is no server-side validation, rate limiting, or audit trail. Do not enter real credentials or real account numbers.
 
-The service worker uses a network-first fetch handler. It serves a cached shell only when the network fails. It removes old caches on activation. This avoids serving stale JavaScript after a deploy.
+The service worker caches only HTML pages. JavaScript, CSS, and images always come from the network, so a deploy cannot serve stale code. When a page request fails, the worker returns the cached page. `skipWaiting()` activates a new worker as soon as it installs. The activate handler deletes older caches and takes control of existing tabs.

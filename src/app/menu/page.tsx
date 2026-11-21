@@ -1,11 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { User, Bell, Settings, Shield, LogOut, ChevronRight, Copy, CheckCircle2, Info } from 'lucide-react';
 import { useBankStore } from '@/lib/store';
 import { HapticButton } from '@/components/ui/HapticButton';
 
 export default function MenuPage() {
+  const router = useRouter();
   const { userName, otherAccounts } = useBankStore();
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
@@ -83,7 +85,7 @@ export default function MenuPage() {
       <HapticButton 
         onClick={() => {
           localStorage.removeItem('isLoggedIn');
-          window.location.href = '/login';
+          router.push('/login');
         }}
         className="w-full flex items-center justify-center gap-4 p-6 bg-red-50 rounded-[28px] text-red-600 font-black uppercase tracking-widest text-xs shadow-sm"
       >

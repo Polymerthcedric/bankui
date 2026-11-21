@@ -1,8 +1,13 @@
-const CACHE_NAME = 'bankui-cache-v3';
-const SHELL = ['/', '/manifest.json', '/favicon.ico'];
+const CACHE_NAME = 'bankui-cache-v4';
+const SHELL = ['/', '/login', '/menu', '/payments', '/transfers', '/manifest.json', '/favicon.ico'];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(SHELL)));
+  event.waitUntil(
+    caches
+      .open(CACHE_NAME)
+      .then((cache) => cache.addAll(SHELL))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', (event) => {
@@ -27,6 +32,13 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
+  if (request.mode !== 'navigate') {
+    // JavaScript, CSS, and images always come from the network.
+    // A deploy must not serve stale code from a cache.
+    event.respondWith(fetch(request));
+    return;
+  }
+
   event.respondWith(
     fetch(request)
       .then((response) => {
@@ -37,11 +49,7 @@ self.addEventListener('fetch', (event) => {
         return response;
       })
       .catch(() =>
-        caches.match(request).then((cached) => {
-          if (cached) return cached;
-          if (request.mode === 'navigate') return caches.match('/');
-          return Response.error();
-        })
+        caches.match(request).then((cached) => cached || caches.match('/'))
       )
   );
 });
