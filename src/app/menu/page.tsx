@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { User, Bell, Settings, Shield, LogOut, ChevronRight, HelpCircle, Copy, CheckCircle2, Info } from 'lucide-react';
+import { User, Bell, Settings, Shield, LogOut, ChevronRight, Copy, CheckCircle2, Info } from 'lucide-react';
 import { useBankStore } from '@/lib/store';
 import { HapticButton } from '@/components/ui/HapticButton';
 

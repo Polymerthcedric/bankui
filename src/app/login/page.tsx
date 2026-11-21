@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Fingerprint, ShieldCheck, Lock, Smartphone } from 'lucide-react';
+import { Fingerprint, ShieldCheck } from 'lucide-react';
 import { HapticButton } from '@/components/ui/HapticButton';
 
 export default function LoginPage() {

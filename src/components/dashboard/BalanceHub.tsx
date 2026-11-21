@@ -1,21 +1,18 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useBankStore, Currency } from '@/lib/store';
-import { Bitcoin, DollarSign, Wallet } from 'lucide-react';
+import { Bitcoin, DollarSign, Wallet, type LucideIcon } from 'lucide-react';
+import { useIsClient } from '@/lib/clientState';
 
 export const BalanceHub = () => {
   const { balances, currentCurrency, setCurrency, userAccountNumber } = useBankStore();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useIsClient();
 
   if (!mounted) return <div className="h-[180px] w-full bg-[#003366] animate-pulse" />;
 
-  const currencies: { type: Currency; icon: any; label: string }[] = [
+  const currencies: { type: Currency; icon: LucideIcon; label: string }[] = [
     { type: 'KES', icon: Wallet, label: 'Shillings' },
     { type: 'USD', icon: DollarSign, label: 'Dollars' },
     { type: 'BTC', icon: Bitcoin, label: 'Bitcoin' },

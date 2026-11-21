@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, CheckCircle2, AlertCircle, Search, Bitcoin, DollarSign, Wallet } from 'lucide-react';
+import { X, CheckCircle2, AlertCircle, Search, Bitcoin, DollarSign, Wallet, type LucideIcon } from 'lucide-react';
 import { useBankStore, Currency } from '@/lib/store';
 
 export const TransferScreen = ({ isOpen, onClose, prefillAcc }: { isOpen: boolean; onClose: () => void; prefillAcc?: string }) => {
@@ -10,10 +10,8 @@ export const TransferScreen = ({ isOpen, onClose, prefillAcc }: { isOpen: boolea
   
   const [step, setStep] = useState<'details' | 'confirm' | 'result'>('details');
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(currentCurrency);
-  const [accountNumber, setAccountNumber] = useState('');
+  const [accountNumber, setAccountNumber] = useState(prefillAcc ?? '');
   const [amount, setAmount] = useState('');
-  const [receiver, setReceiver] = useState<{ name: string; accountNumber: string } | null>(null);
-  const [error, setError] = useState('');
   const [status, setStatus] = useState<{ success: boolean; message: string } | null>(null);
 
   const isBTC = selectedCurrency === 'BTC';
@@ -21,50 +19,30 @@ export const TransferScreen = ({ isOpen, onClose, prefillAcc }: { isOpen: boolea
   const accentColor = isBTC ? '#F7931A' : (isUSD ? '#003366' : '#D4AF37');
   const accentShadow = isBTC ? 'shadow-orange-200' : (isUSD ? 'shadow-blue-200' : 'shadow-gold/20');
 
-  useEffect(() => {
-    if (isOpen) {
-      setSelectedCurrency(currentCurrency);
-      if (prefillAcc) setAccountNumber(prefillAcc);
-    }
-  }, [isOpen, currentCurrency, prefillAcc]);
+  const { receiver, error } = useMemo<{
+    receiver: { name: string; accountNumber: string } | null;
+    error: string;
+  }>(() => {
+    if (!accountNumber) return { receiver: null, error: '' };
 
-  useEffect(() => {
-    if (!accountNumber) {
-      setReceiver(null);
-      setError('');
-      return;
-    }
-
-    if (isBTC) {
+    if (selectedCurrency === 'BTC') {
       if (accountNumber.startsWith('bc1') && accountNumber.length >= 26) {
-        setReceiver({ name: 'External BTC Wallet', accountNumber });
-        setError('');
-      } else {
-        setReceiver(null);
-        setError('Invalid BTC address');
+        return { receiver: { name: 'External BTC Wallet', accountNumber }, error: '' };
       }
-    } else {
-      if (accountNumber.length >= 8) {
-        const found = findAccount(accountNumber);
-        if (found) {
-          setReceiver(found);
-          setError('');
-        } else if (accountNumber.length >= 12) {
-          setError('Account not found');
-          setReceiver(null);
-        } else {
-          setReceiver(null);
-          setError('');
-        }
-      } else {
-        setReceiver(null);
-        setError('');
-      }
+      return { receiver: null, error: 'Invalid BTC address' };
     }
-  }, [accountNumber, selectedCurrency, isBTC, findAccount]);
+
+    if (accountNumber.length >= 8) {
+      const found = findAccount(accountNumber);
+      if (found) return { receiver: found, error: '' };
+      if (accountNumber.length >= 12) return { receiver: null, error: 'Account not found' };
+    }
+
+    return { receiver: null, error: '' };
+  }, [accountNumber, selectedCurrency, findAccount]);
 
   const handleTransfer = () => {
-    if ((!receiver && !isBTC) || !amount || isNaN(Number(amount))) return;
+    if (!receiver || !Number.isFinite(Number(amount)) || Number(amount) <= 0) return;
     const result = executeTransfer(Number(amount), accountNumber, selectedCurrency);
     setStatus(result);
     setStep('result');
@@ -72,15 +50,14 @@ export const TransferScreen = ({ isOpen, onClose, prefillAcc }: { isOpen: boolea
 
   const reset = () => {
     setStep('details');
+    setSelectedCurrency(currentCurrency);
     setAccountNumber('');
     setAmount('');
-    setReceiver(null);
-    setError('');
     setStatus(null);
     onClose();
   };
 
-  const currencies: { val: Currency; label: string; icon: any }[] = [
+  const currencies: { val: Currency; label: string; icon: LucideIcon }[] = [
     { val: 'KES', label: 'Shillings', icon: Wallet },
     { val: 'USD', label: 'US Dollars', icon: DollarSign },
     { val: 'BTC', label: 'Bitcoin', icon: Bitcoin },
@@ -129,7 +106,6 @@ export const TransferScreen = ({ isOpen, onClose, prefillAcc }: { isOpen: boolea
                         onClick={() => {
                           setSelectedCurrency(curr.val);
                           setAccountNumber('');
-                          setReceiver(null);
                         }}
                         className={`flex flex-col items-center gap-2 p-5 rounded-[28px] border-2 transition-all active:scale-95 ${
                           selectedCurrency === curr.val 

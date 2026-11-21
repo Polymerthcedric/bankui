@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useRef } from 'react';
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import React from 'react';
+import { motion, useMotionValue } from 'framer-motion';
 import { useBankStore, Currency } from '@/lib/store';
 import { ShieldCheck, Bitcoin, DollarSign, Wallet } from 'lucide-react';
 import { BalanceCountUp } from './BalanceCountUp';
@@ -11,8 +11,7 @@ const CARD_GAP = 20;
 
 export const CardCarousel = () => {
   const { balances, currentCurrency, setCurrency, userAccountNumber } = useBankStore();
-  const containerRef = useRef<HTMLDivElement>(null);
-  
+
   const currencies: Currency[] = ['KES', 'USD', 'BTC'];
   const activeIndex = currencies.indexOf(currentCurrency);
 
@@ -23,9 +22,11 @@ export const CardCarousel = () => {
   };
 
   const x = useMotionValue(0);
-  const dragX = useSpring(x, { stiffness: 300, damping: 30 });
 
-  const handleDragEnd = (event: any, info: any) => {
+  type DragEndInfo = { offset: { x: number }; velocity: { x: number } };
+
+  const handleDragEnd = (_event: unknown, info: DragEndInfo) => {
+    void _event;
     const offset = info.offset.x;
     const velocity = info.velocity.x;
 
@@ -52,8 +53,7 @@ export const CardCarousel = () => {
         >
           {currencies.map((curr, i) => {
             const isActive = i === activeIndex;
-            const distance = Math.abs(i - activeIndex);
-            
+
             return (
               <motion.div
                 key={curr}

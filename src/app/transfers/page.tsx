@@ -2,17 +2,19 @@
 
 import React, { useState } from 'react';
 import { TransferScreen } from "@/components/dashboard/TransferScreen";
-import { ArrowRightLeft, History, Users } from 'lucide-react';
+import { ArrowRightLeft, Users } from 'lucide-react';
 import { useBankStore } from '@/lib/store';
 import { QuickSend } from '@/components/dashboard/QuickSend';
 
 export default function TransfersPage() {
   const [isTransferOpen, setIsTransferOpen] = useState(false);
   const [prefillAcc, setPrefillAcc] = useState<string | undefined>(undefined);
-  const { transactionHistory, currentCurrency } = useBankStore();
+  const [openCount, setOpenCount] = useState(0);
+  const { transactionHistory } = useBankStore();
 
   const handleSendClick = (accNum?: string) => {
     setPrefillAcc(accNum);
+    setOpenCount((count) => count + 1);
     setIsTransferOpen(true);
   };
 
@@ -78,6 +80,7 @@ export default function TransfersPage() {
       </div>
 
       <TransferScreen 
+        key={openCount}
         isOpen={isTransferOpen} 
         onClose={() => setIsTransferOpen(false)} 
         prefillAcc={prefillAcc}
