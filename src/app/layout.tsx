@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -8,6 +8,7 @@ import { MobileShell } from "@/components/layout/MobileShell";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { BalanceHub } from "@/components/dashboard/BalanceHub";
 import Script from "next/script";
+import { useIsClient, useIsLoggedIn } from "@/lib/clientState";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,21 +27,17 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   const router = useRouter();
-  const [isReady, setIsReady] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isReady = useIsClient();
+  const isLoggedIn = useIsLoggedIn();
 
   useEffect(() => {
-    const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    setIsLoggedIn(loggedIn);
-
-    if (!loggedIn && pathname !== '/login') {
+    if (!isReady) return;
+    if (!isLoggedIn && pathname !== '/login') {
       router.push('/login');
-    } else if (loggedIn && pathname === '/login') {
+    } else if (isLoggedIn && pathname === '/login') {
       router.push('/');
     }
-    
-    setIsReady(true);
-  }, [pathname, router]);
+  }, [isReady, isLoggedIn, pathname, router]);
 
   if (!isReady) return null;
 

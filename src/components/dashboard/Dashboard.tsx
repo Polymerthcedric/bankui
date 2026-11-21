@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useBankStore, EXCHANGE_RATES } from '@/lib/store';
-import { Send, Plus, PieChart, TrendingUp, Smartphone, QrCode, CreditCard, RefreshCw } from 'lucide-react';
+import { useBankStore } from '@/lib/store';
+import { Send, Plus, Smartphone, QrCode, CreditCard, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { QuickSend } from './QuickSend';
 import { TransactionSkeleton } from './TransactionSkeleton';

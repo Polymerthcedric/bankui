@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { motion, useSpring, useTransform } from 'framer-motion';
+import { useIsClient } from '@/lib/clientState';
 
 export const BalanceCountUp = ({ value, currency }: { value: number; currency: string }) => {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsClient();
   const isBTC = currency === 'BTC';
   
   const springValue = useSpring(0, {
@@ -12,10 +13,6 @@ export const BalanceCountUp = ({ value, currency }: { value: number; currency: s
     damping: 15,
     restDelta: 0.0001,
   });
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (mounted) {
