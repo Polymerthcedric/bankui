@@ -9,12 +9,12 @@ import { QuickSend } from '@/components/dashboard/QuickSend';
 export default function TransfersPage() {
   const [isTransferOpen, setIsTransferOpen] = useState(false);
   const [prefillAcc, setPrefillAcc] = useState<string | undefined>(undefined);
-  const [openCount, setOpenCount] = useState(0);
+  const [transferSessionKey, setTransferSessionKey] = useState(0);
   const { transactionHistory } = useBankStore();
 
   const handleSendClick = (accNum?: string) => {
     setPrefillAcc(accNum);
-    setOpenCount((count) => count + 1);
+    setTransferSessionKey((count) => count + 1);
     setIsTransferOpen(true);
   };
 
@@ -80,7 +80,7 @@ export default function TransfersPage() {
       </div>
 
       <TransferScreen 
-        key={openCount}
+        key={transferSessionKey}
         isOpen={isTransferOpen} 
         onClose={() => setIsTransferOpen(false)} 
         prefillAcc={prefillAcc}
